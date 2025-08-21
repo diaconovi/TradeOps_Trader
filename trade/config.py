@@ -1,0 +1,16 @@
+DEBUG_LEVEL = 'DEBUG'
+DEMO_ACCOUNT = True
+BASE_ENDPOINT = 'https://api-capital.backend-capital.com/api/v1'
+DEMO_ENDPOINT = 'https://demo-api-capital.backend-capital.com/api/v1'
+TIME_ZONE = 'America/Mexico_City'
+MONGO_URL = 'localhost'
+MONGO_PORT = 27017
+MONGO_DBS = {'MARKET_DB': "markets", 'PRICES_DB': 'prices'}
+MONGO_HEARTBEAT_MS = 600000
+SESSION_MANAGER_URL = 'http://localhost'
+SESSION_MANAGER_PORT = '5000'
+SESSION_EXPIRATION = 540
+COLLECTOR_URL = 'http://localhost'
+COLLECTOR_PORT = '5001'
+
+SCHEDULER_API_ENABLED = True
