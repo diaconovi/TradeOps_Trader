@@ -1,13 +1,12 @@
 from trade.modules.session import Session
 from trade.modules.mongo_client import MongoDBClient
-from trade.modules.scheduler import Scheduler
-from trade.controllers.schedule_bp import bp as scheduleBp
+from trade.modules.trade_operations import Operations
+from trade.controllers.orders_bp import bp as OrdersBp
+from trade.controllers.positions_bp import bp as PositionsBp
 from flask import Flask, current_app
 import json
 import logging
 import sys
-
-from trade.controllers.test_bp import bp as testBp
 
 def init_app():
     app = Flask(__name__, instance_relative_config=False)
@@ -30,14 +29,16 @@ def init_app():
     #Init Session
     with app.app_context():
         Session(current_app)
+        Operations(current_app)
         MongoDBClient.set_client(current_app)
 
-    app.register_blueprint()
+    app.register_blueprint(OrdersBp)
+    app.register_blueprint(PositionsBp)
 
     @app.route("/")
     def main_route():
         main_json = {
-            'Module': 'recolector',
+            'Module': 'Trader',
             'version': 'TBD'
             }
         return main_json
