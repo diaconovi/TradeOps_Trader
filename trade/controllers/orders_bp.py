@@ -4,6 +4,7 @@ from flask import request, Blueprint, current_app
 import logging
 import json
 import requests
+from datetime import datetime
 
 log = logging.getLogger(__name__)
 bp = Blueprint('orders', __name__)
@@ -79,6 +80,15 @@ def place_order_buy():
         if api_request.status_code == 200:
             request_json = api_request.json()
             
+            return json.dumps(request_json)
+        else:
+            request_json = api_request.json()
+            with open("error.log", "a") as f:
+                f.write(f"{datetime.now()}\n")
+                f.write(f"  request error: {request_json}\n")
+                f.write(f"  request error: {request_endpoint}\n")
+                f.write(f"  body: {json.dumps(params)}\n")
+                f.write(f"  headers: {json.dumps(headers)}\n")
             return json.dumps(request_json)
 
     else:
