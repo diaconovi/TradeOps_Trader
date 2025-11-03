@@ -51,7 +51,9 @@ def place_order_buy():
             profit_level = data['profitLevel']
         if 'stopLevel' in data:
             stop_level = data['stopLevel']
-            
+        if 'type' in data:
+            order_type = data['type']
+
         session = Session.get_last_session_keys()
         
         request_endpoint = f"{current_app.config.get('API_URL')}/workingorders"
@@ -93,3 +95,4 @@ def place_order_buy():
 
     else:
         return 'Not a json body'
+    
