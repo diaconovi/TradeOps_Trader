@@ -15,6 +15,20 @@ class MongoDBClient:
         MongoDBClient.mongo_client = pymongo.MongoClient(f"mongodb://{context.config.get('MONGO_URL')}:{context.config.get('MONGO_PORT')}/", heartbeatFrequencyMS=context.config.get('MONGO_HEARTBEAT_MS'))
         MongoDBClient.databases = context.config.get('MONGO_DBS')
 
+    def find_one(self, query, collection_name):
+        collection = self.database[collection_name]
+
+        try: 
+            action = collection.find_one(query)
+            if action != None:
+                action.pop('_id')
+                return_json = action
+            else:
+                return {}
+        except Exception as e:
+            print (f"exception: {e}")
+        return return_json
+
     def insert_one(self, data_dict, collection_name):
         collection = self.database[collection_name]
 
