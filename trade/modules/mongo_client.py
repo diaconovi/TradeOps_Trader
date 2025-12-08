@@ -68,3 +68,21 @@ class MongoDBClient:
 
     def get_current_client():
         return MongoDBClient.mongo_client
+    
+    def find(self, collection_name, query):
+        collecction =  self.database[collection_name]
+        result = collecction.find(query)
+        docs = []
+        for doc in result:
+            docs.append(doc)
+
+        return docs
+
+    def aggregate(self, collection_name, query):
+        collecction =  self.database[collection_name]
+        result = collecction.aggregate(query)
+        docs = []
+        for doc in result:
+            docs.append(doc)
+
+        return docs
